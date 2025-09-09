@@ -25,7 +25,7 @@ public class LoggingInterceptor implements Interceptor {
     }
 
     @Override
-    public boolean onException(HttpExchange exchange, Route route, Exception ex) {
+    public boolean onException(HttpExchange exchange, Route route, Throwable ex) {
         LOGGER.error("Error Occurred , {}", ex.getMessage());
         return false;
     }

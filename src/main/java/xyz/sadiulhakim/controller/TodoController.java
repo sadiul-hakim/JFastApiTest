@@ -4,6 +4,7 @@ import com.jFastApi.annotation.Bean;
 import com.jFastApi.annotation.HttpRoute;
 import com.jFastApi.annotation.RequestBody;
 import com.jFastApi.annotation.RequestParam;
+import com.jFastApi.exception.ApplicationException;
 import com.jFastApi.http.Response;
 import com.jFastApi.http.enumeration.ContentType;
 import com.jFastApi.http.enumeration.HttpMethod;
@@ -56,5 +57,10 @@ public class TodoController {
                 .status(HttpStatus.OK)
                 .body(Map.of("message", msg))
                 .build();
+    }
+
+    @HttpRoute(path = "/todo/test",method = HttpMethod.GET)
+    public Response<Map> test(){
+        throw new ApplicationException("Test");
     }
 }
