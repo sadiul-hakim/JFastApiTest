@@ -5,11 +5,11 @@ import com.jFastApi.security.AuthUser;
 import java.util.Collection;
 import java.util.List;
 
-public class User implements AuthUser {
+public class UserDetails implements AuthUser {
 
-    private String username = "Hakim";
-    private String password = "hakim";
-    private String role = "";
+    private String username;
+    private String password;
+    private String role;
 
     @Override
     public String getUsername() {
@@ -26,6 +26,12 @@ public class User implements AuthUser {
         return List.of(role);
     }
 
-    public User() {
+    public UserDetails() {
+    }
+
+    public UserDetails(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 }
