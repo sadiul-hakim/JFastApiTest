@@ -4,8 +4,8 @@ import com.jFastApi.annotation.Bean;
 import com.jFastApi.annotation.ExceptionHandler;
 import com.jFastApi.exception.ApplicationException;
 import com.jFastApi.http.Response;
-import com.jFastApi.http.enumeration.ContentType;
-import com.jFastApi.http.enumeration.HttpStatus;
+import com.jFastApi.enumeration.ContentType;
+import com.jFastApi.enumeration.HttpStatus;
 
 import java.util.Map;
 

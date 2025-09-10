@@ -1,17 +1,17 @@
 package xyz.sadiulhakim.controller;
 
+import com.jFastApi.http.Response;
+import com.jFastApi.http.interceptor.InterceptorRegistry;
 import com.jFastApi.annotation.Bean;
 import com.jFastApi.annotation.HttpRoute;
 import com.jFastApi.annotation.RequestBody;
 import com.jFastApi.annotation.RequestParam;
+import com.jFastApi.enumeration.ContentType;
+import com.jFastApi.enumeration.HttpMethod;
+import com.jFastApi.enumeration.HttpStatus;
 import com.jFastApi.exception.ApplicationException;
-import com.jFastApi.http.Response;
-import com.jFastApi.http.enumeration.ContentType;
-import com.jFastApi.http.enumeration.HttpMethod;
-import com.jFastApi.http.enumeration.HttpStatus;
 import xyz.sadiulhakim.model.Todo;
 import xyz.sadiulhakim.service.TodoService;
-
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @HttpRoute(path = "/todo/save", method = HttpMethod.POST)
+    @HttpRoute(path = "/todo/save", method = HttpMethod.POST,roles = {"ADMIN"})
     public Response<Map> saveTodo(@RequestBody Todo todo) {
 
         todoService.save(todo);
@@ -39,7 +39,7 @@ public class TodoController {
 
     @HttpRoute(path = "/todo/find-all", method = HttpMethod.GET)
     public Response<List> findAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) long pageNumber) {
-
+        InterceptorRegistry.getInterceptors();
         List<Todo> list = todoService.findAll();
         return new Response.Builder<List>()
                 .contentType(ContentType.JSON)
@@ -50,6 +50,7 @@ public class TodoController {
 
     @HttpRoute(path = "/todo/delete", method = HttpMethod.DELETE)
     public Response<Map> delete(@RequestParam(name = "id") long id) {
+
         boolean deleted = todoService.delete(id);
         String msg = deleted ? "Deleted todo " + id + " successfully." : "Could not delete todo " + id;
         return new Response.Builder<Map>()

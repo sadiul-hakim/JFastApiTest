@@ -7,7 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@InterceptorBean
+@InterceptorBean(order = 1)
 public class LoggingInterceptor implements Interceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
