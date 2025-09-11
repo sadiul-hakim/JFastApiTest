@@ -25,7 +25,7 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @HttpRoute(path = "/todo/save", method = HttpMethod.POST,roles = {"ADMIN"})
+    @HttpRoute(path = "/todo/save", method = HttpMethod.POST, roles = {"ADMIN"})
     public Response<Map> saveTodo(@RequestBody Todo todo) {
 
         todoService.save(todo);
@@ -37,7 +37,7 @@ public class TodoController {
                 .build();
     }
 
-    @HttpRoute(path = "/todo/find-all", method = HttpMethod.GET)
+    @HttpRoute(path = "/todo/find-all", method = HttpMethod.GET, authorized = true)
     public Response<List> findAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) long pageNumber) {
         InterceptorRegistry.getInterceptors();
         List<Todo> list = todoService.findAll();
@@ -60,8 +60,8 @@ public class TodoController {
                 .build();
     }
 
-    @HttpRoute(path = "/todo/test",method = HttpMethod.GET)
-    public Response<Map> test(){
+    @HttpRoute(path = "/todo/test", method = HttpMethod.GET)
+    public Response<Map> test() {
         throw new ApplicationException("Test");
     }
 }
