@@ -15,6 +15,7 @@ import xyz.sadiulhakim.service.TodoService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Bean
 public class TodoController {
@@ -37,8 +38,11 @@ public class TodoController {
                 .build();
     }
 
-    @HttpRoute(path = "/todo/find-all", method = HttpMethod.GET, authorized = true)
-    public Response<List> findAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) long pageNumber) {
+    @HttpRoute(
+            path = "/todo/find-all",
+            method = HttpMethod.GET, authorized = true
+    )
+    public Response<List> findAll() {
         InterceptorRegistry.getInterceptors();
         List<Todo> list = todoService.findAll();
         return new Response.Builder<List>()
