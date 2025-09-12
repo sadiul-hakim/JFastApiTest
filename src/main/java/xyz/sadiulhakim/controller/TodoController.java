@@ -1,7 +1,5 @@
 package xyz.sadiulhakim.controller;
 
-import com.jFastApi.http.Response;
-import com.jFastApi.http.interceptor.InterceptorRegistry;
 import com.jFastApi.annotation.Bean;
 import com.jFastApi.annotation.HttpRoute;
 import com.jFastApi.annotation.RequestBody;
@@ -10,12 +8,13 @@ import com.jFastApi.enumeration.ContentType;
 import com.jFastApi.enumeration.HttpMethod;
 import com.jFastApi.enumeration.HttpStatus;
 import com.jFastApi.exception.ApplicationException;
+import com.jFastApi.http.Response;
+import com.jFastApi.http.interceptor.InterceptorRegistry;
 import xyz.sadiulhakim.model.Todo;
 import xyz.sadiulhakim.service.TodoService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Bean
 public class TodoController {
@@ -40,7 +39,8 @@ public class TodoController {
 
     @HttpRoute(
             path = "/todo/find-all",
-            method = HttpMethod.GET, authorized = true
+            method = HttpMethod.GET,
+            limit = 1
     )
     public Response<List> findAll() {
         InterceptorRegistry.getInterceptors();

@@ -3,6 +3,7 @@ package xyz.sadiulhakim.service;
 import com.jFastApi.AppContext;
 import com.jFastApi.annotation.Bean;
 import com.jFastApi.db.HibernateRepository;
+import com.jFastApi.exception.UsernameNotFoundException;
 import com.jFastApi.security.SecurityContext;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,7 +28,12 @@ public class UserService {
     }
 
     public User findById(long id) {
-        return userRepository.findById(id);
+        User user = userRepository.findById(id);
+        if (user == null) {
+            throw new UsernameNotFoundException("User is not found with id " + id);
+        }
+
+        return user;
     }
 
     public List<User> findAll() {

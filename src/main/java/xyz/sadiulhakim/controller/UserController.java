@@ -39,6 +39,14 @@ public class UserController {
                 .build();
     }
 
+    @HttpRoute(path = "/user/find-by-id", limit = 1)
+    public Response<User> findUserById(@RequestParam(name = "id") long id) {
+        User user = userService.findById(id);
+        return new Response.Builder<User>()
+                .body(user)
+                .build();
+    }
+
     @HttpRoute(path = "/user/delete", method = HttpMethod.DELETE, roles = "ADMIN")
     public Response<Map> delete(@RequestParam(name = "id") long id) {
         userService.delete(id);

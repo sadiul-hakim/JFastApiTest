@@ -3,6 +3,7 @@ package xyz.sadiulhakim.exception;
 import com.jFastApi.annotation.Bean;
 import com.jFastApi.annotation.ExceptionHandler;
 import com.jFastApi.exception.ApplicationException;
+import com.jFastApi.exception.UsernameNotFoundException;
 import com.jFastApi.http.Response;
 import com.jFastApi.enumeration.ContentType;
 import com.jFastApi.enumeration.HttpStatus;
@@ -17,6 +18,14 @@ public class GlobalExceptionHandler {
         return new Response.Builder<Map>()
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(ContentType.JSON)
+                .body(Map.of("error", ex.getMessage()))
+                .build();
+    }
+
+    @ExceptionHandler(exception = UsernameNotFoundException.class)
+    public Response<Map> handleUserNotFoundException(UsernameNotFoundException ex){
+        return new Response.Builder<Map>()
+                .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()))
                 .build();
     }
